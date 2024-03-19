@@ -1,0 +1,126 @@
+
+#include<stdio.h>
+#include<stdlib.h>
+struct treeNode
+{
+int data;
+struct treeNode *left,*right;
+};
+struct treeNode *root=NULL;
+struct treeNode *createNode(int data)
+{
+struct treeNode *newNode;
+newNode=(malloc(sizeof(struct treeNode)));
+newNode->data=data;
+newNode->left=NULL;
+newNode->right=NULL;
+return(newNode);
+}
+void insertion(struct treeNode **node,int data)
+{
+if(*node==NULL)
+*node=createNode(data);
+else if(data<(*node)->data)
+insertion(&(*node)->left,data);
+else if(data>(*node)->data)
+insertion(&(*node)->right,data);
+else if(data==(*node)->data)
+{
+if((*node)->left==NULL)
+insertion(&(*node)->left,data);
+else
+insertion(&(*node)->right,data);
+}
+}
+void searchElem(struct treeNode *node,int data)
+{
+if(!node)
+{
+printf("Element not found\n");
+return;
+}
+else if(data<node->data)
+searchElem(node->left,data);
+else if(data>node->data)
+searchElem(node->right,data);
+else
+printf("Element found %d\n", node->data);
+return;
+}
+void in_order(struct treeNode *node)
+{
+if(node!=NULL)
+{
+in_order(node->left);
+printf("%d\t",node->data);
+in_order(node->right);
+}
+return;
+}
+void pre_order(struct treeNode *node)
+{
+if(node!=NULL)
+{
+printf("%d\t",node->data);
+pre_order(node->left);
+pre_order(node->right);
+}
+return;
+}
+void post_order(struct treeNode *node)
+{
+if(node!=NULL)
+{
+post_order(node->left);
+post_order(node->right);
+printf("%d\t",node->data);
+}
+return;
+}
+void main()
+{
+int data,ch;
+while(1)
+{
+printf("\n1:Creation of BST");
+printf("\n2:Search element in BST");
+printf("\n3:Inorder traversal \n4:Preorder traversal
+\n5:Postorder traversal \n6:Exit\n");
+printf("\nenter your choice:");
+scanf("%d",&ch);
+switch(ch)
+{
+case 1:while(1)
+{
+printf("enter data for creating BST:");
+scanf("%d",&data);
+insertion(&root,data);
+printf("continue creation(0/1):");
+scanf("%d",&ch);
+if(!ch)
+break;
+}
+break;
+case 2:printf("enter the value for data:");
+scanf("%d",&data);
+searchElem(root,data);
+break;
+case 3:printf("inorder traversal:\n");
+in_order(root);
+printf("\n");
+break;
+case 4:printf("preorder traversal:\n");
+pre_order(root);
+printf("\n");
+break;
+case 5:printf("postorder traversal:\n");
+post_order(root);
+printf("\n");
+break;
+case 6:exit(0);
+default:printf("wrong option\n");
+break;
+}
+}
+}
+
