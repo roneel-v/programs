@@ -1,0 +1,150 @@
+
+#include<stdio.h>
+#include<stdlib.h>
+int n;
+void create();
+void ins_front();
+void del_front();
+void ins_end();
+void del_end();
+void display();
+struct node
+{
+char USN[10],name[10],branch[10],sem[5],phno[10];
+struct node *link;
+};
+struct node *first=NULL,*temp;
+void createnode()
+{
+temp=malloc(sizeof(struct node));
+printf("enter the data to be inserted\n");
+printf("\n USN: name: branch: sem: phno:\n");
+scanf("%s%s%s%s%s",temp->USN,temp->name,temp->branch,temp-
+>sem,temp->phno);
+}
+void create()
+{
+printf("\nenter the no of elem to be inserted to the list\n");
+scanf("%d",&n);
+while(n!=0)
+{
+ins_front();
+n--;
+}
+}
+void ins_front()
+{
+createnode();
+temp->link=first;
+first=temp;
+}
+void ins_end()
+{
+struct node *t;
+createnode();
+t=first;
+if(t!=NULL)
+{
+while(t->link!=NULL)
+{
+t=t->link;
+}
+t->link=temp;
+}
+else
+{
+first=temp;
+}
+}
+void del_end()
+{
+struct node *cur=NULL,*prev=NULL;
+cur=first;
+if(cur!=NULL)
+{
+while(cur->link!=NULL)
+{
+prev=cur;
+cur=cur->link;
+}
+if(cur==first)
+first=NULL;
+else
+prev->link=NULL;
+printf("the deleted node is %s\t%s\t%s\t%s\t%s\n",cur->USN,cur-
+>name,cur->branch,cur->sem,cur->phno);
+free(cur);
+}
+else
+{
+printf("\n no elements\n");
+}
+}
+void del_front()
+{
+struct node *t;
+t=first;
+if(first!=NULL)
+{
+first=first->link;
+printf(" the deleted node is %s\t%s\t%s\t%s\t%s\n",t->USN,t-
+>name,t->branch,t->sem,t->phno);
+free(t);
+}
+else
+{
+printf("\n no elements\n");
+}
+}
+void display()
+{
+int count;
+struct node *tem;
+if(first==NULL)
+{
+printf("\ndisplay not possible\n");
+return;
+}
+tem=first;
+printf("\nUSN\tname\tbranch\tsem\tphno\n");
+count=1;
+while(tem!=NULL)
+{
+printf("\n%s\t%s\t%s\t%s\t%s\n",tem->USN,tem->name,tem-
+>branch,tem->sem,tem->phno);
+tem=tem->link;
+count++;
+}
+printf("\n no of nodes %d\n",count-1);
+}
+void main()
+{
+int ch;
+while(1)
+{
+printf("\n 1:create\n 2:ins_front\n 3:del_front\n 4:ins_end\n
+5:del_end\n 6:display\n 7:stop\n");
+printf("\nenter your choice\n");
+scanf("%d",&ch);
+switch(ch)
+{
+case 1:create();
+break;
+case 2:ins_front();
+break;
+case 3:del_front();
+break;
+case 4:ins_end();
+break;
+case 5:del_end();
+break;
+case 6:display();
+break;
+default:exit(0);
+break;
+}
+}
+}
+Output
+
+
