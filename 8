@@ -1,0 +1,179 @@
+
+#include<stdio.h>
+#include<stdlib.h>
+int n;
+void create();
+void ins_front();
+void del_front();
+void ins_end();
+void del_end();
+void display();
+void queue();
+struct node
+{
+char SSN[10],name[10],dept[10],desig[5],phno[10],sal[10];
+struct node *llink,*rlink;
+};
+struct node *first=NULL,*last=NULL,*temp;
+void getnode()
+{
+temp=malloc(sizeof(struct node));
+printf("enter the data to be inserted\n");
+printf("\n SSN: name: dept: designation: phno: salary:\n");
+scanf("%s%s%s%s%s%s",temp->SSN,temp->name,temp->dept,temp-
+>desig,temp->phno,temp->sal);
+temp->llink=temp->rlink=NULL;
+}
+void create()
+{
+n==0;
+printf("\n enter the number of elements to be inserted into
+list\n");
+scanf("%d",&n);
+while(n!=0)
+{
+ins_end();
+n--;
+}
+}
+void ins_front()
+{
+getnode();
+if(first==NULL)
+first=temp;
+else
+{
+temp->rlink=first;
+first->llink=temp;
+first=temp;
+}
+}
+void ins_end()
+{
+getnode();
+if(first==NULL)
+first=temp;
+else
+{
+last=first;
+while(last->rlink!=NULL)
+last=last->rlink;
+last->rlink=temp;
+temp->llink=last;
+}
+}
+void del_end()
+{
+struct node *node_deleted;
+if(first==NULL)
+printf("no element\n");
+else
+{
+last=first;
+while(last->rlink!=NULL)
+last=last->rlink;
+printf("the deleted node:%s\t%s\t%s\t%s\t%s\t%s\n",last-
+>SSN,last->name,last->dept,last->desig,last->phno,last->sal);
+node_deleted=last;
+last=last->llink;
+if(last==NULL)
+first=NULL;
+else
+last->rlink=NULL;
+free(node_deleted);
+}
+}
+void del_front()
+{
+struct node *t;
+if(first==NULL)
+printf("no elements\n");
+else
+{
+t=first;
+if(first->rlink==NULL)
+first=NULL;
+else
+{
+first=first->rlink;
+first->llink=NULL;
+}
+t->rlink=NULL;
+printf("the deleted node is:%s\t%s\t%s\t%s\t%s\t%s\n",t->SSN,t-
+>name,t->dept,t->desig,t->phno,t->sal);
+free(t);
+}
+}
+void display()
+{
+int count;
+struct node *temp;
+if(first==NULL)
+{
+printf("display not possible");
+return;
+}
+temp=first;
+printf("\nSSN\tname\tDept\tdesg\tphno\tsalary\n");
+count=0;
+while(temp!=NULL)
+{
+printf("\n%s\t%s\t%s\t%s\t%s\t%s\t",temp->SSN,temp->name,temp-
+>dept,temp->desig,temp->phno,temp->sal);
+temp=temp->rlink;
+count++;
+}
+printf("\n number of nodes:%d\n",count);
+}
+void queue()
+{
+int ch,MAX=3;
+while(ch!=6)
+{
+printf("\n 1:insertfront\n 2:insertlast\n 3:delete front\n
+4:delete last\n 5:display\n 6:exit");
+printf("enter your choice\n");
+scanf("%d",&ch);
+switch(ch)
+{
+case 1:ins_front();
+break;
+case 2:ins_end();
+break;
+case 3:del_front();
+break;
+case 4:del_end();
+break;
+case 5:display();
+break;
+}
+}
+}
+void main()
+{
+int choice=1;
+while(choice!=8)
+{
+printf("\n 1:create\n 2:insertfront\n 3:insertlast\n 4:delete
+front\n 5:delete last\n 6:display\n 7:DLL queue\n 8:exit\n");
+scanf("%d",&choice);
+switch(choice)
+{
+case 1:create();
+break;
+case 2:ins_front();
+break;
+case 3:ins_end();
+break;
+case 4:del_front();
+break;
+case 5:del_end();
+break;
+case 6:display();
+break;
+case 7:queue();
+break;
+}
+}
+}
+Output
